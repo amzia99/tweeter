@@ -3,5 +3,33 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
+  height: 120px;
+  background-color: #4056A1;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5em;
   z-index: 1;
 }
+
+.nav-logo {
+  font-family: 'Bungee', sans-serif;
+  font-size: 1.5rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.nav-right span {
+  font-size: 1rem;
+}
+
+.nav-right i {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
