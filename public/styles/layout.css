@@ -3,12 +3,13 @@
  * https://css-tricks.com/international-box-sizing-awareness-day/
  * Do not modify these two selectors, please
  */
-html {
+ html {
   box-sizing: border-box;
 }
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
 
 .source-sans-3-header {
   font-family: "Source Sans 3", sans-serif;
@@ -28,10 +29,13 @@ h1, h2, h3 {
   font-family: 'Bungee', sans-serif;
 }
 
+
 body {
   color: #545149;
   background-color: #f4f1ec;
   font-size: 24px;
+
+
   padding-top: 120px;
 }
 
