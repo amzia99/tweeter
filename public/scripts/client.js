@@ -1,6 +1,6 @@
 // client code
 const createTweetElement = function (tweet) {
-  const timeAgo = new Date(tweet.created_at).toLocaleString(); 
+  const timeAgo = new Date(tweet.created_at).toLocaleString();
   const $tweet = $(`
     <article class="tweet">
       <header>
@@ -11,7 +11,7 @@ const createTweetElement = function (tweet) {
         <span class="handle">${tweet.user.handle}</span>
       </header>
       <div class="content">
-        <p>${$("<div>").text(tweet.content.text).html()}</p> <!-- Escaping user input -->
+        <p>${$("<div>").text(tweet.content.text).html()}</p> <!-- Escaping user input for safety -->
       </div>
       <footer>
         <span class="time-ago">${timeAgo}</span>
@@ -26,6 +26,7 @@ const createTweetElement = function (tweet) {
   return $tweet;
 };
 
+
 const renderTweets = function (tweets) {
   const $tweetsContainer = $("#tweets-container");
   $tweetsContainer.empty(); 
@@ -35,45 +36,47 @@ const renderTweets = function (tweets) {
   }
 };
 
+
 const loadTweets = function () {
   $.ajax({
-    url: "/tweets", 
-    method: "GET", 
-    dataType: "json", 
+  url: "/tweets", 
+  method: "GET", 
+  dataType: "json", 
   })
-  .done(function (tweets) {
-    renderTweets(tweets); 
+    .done(function (tweets) {
+      renderTweets(tweets); 
     })
     .fail(function (error) {
-      console.error("Error loading tweets:", error);
+      console.error("Error loading tweets:", error); 
     });
 };
 
+
 $(document).ready(function () {
+  loadTweets(); 
 
-  loadTweets();
-
-$("#new-tweet-form").on("submit", function (event) {
+  
+  $("#new-tweet-form").on("submit", function (event) {
   event.preventDefault(); 
 
-  const $form = $(this);
-  const tweetText = $form.find("textarea").val().trim(); 
+    const $form = $(this);
+    const tweetText = $form.find("textarea").val().trim(); 
 
-if (!tweetText) {
-  alert("Tweet cannot be empty!");
-     return;
+    if (!tweetText) {
+      alert("Tweet cannot be empty!"); 
+      return;
     }
     if (tweetText.length > 140) {
-      alert("Tweet cannot exceed 140 characters!");
+      alert("Tweet cannot exceed 140 characters!"); 
       return;
     }
 
-const formData = $form.serialize();
+    const formData = $form.serialize(); 
 
-  $.ajax({
-  url: "/tweets", 
-  method: "POST", 
-data: formData, 
+    $.ajax({
+    url: "/tweets", 
+    method: "POST", 
+    data: formData, 
     })
       .done(function () {
         console.log("Tweet submitted successfully!");
@@ -81,7 +84,7 @@ data: formData,
         loadTweets(); 
       })
       .fail(function (error) {
-        console.error("Error submitting tweet:", error);
+        console.error("Error submitting tweet:", error); 
       });
   });
 });
