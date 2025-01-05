@@ -1,6 +1,6 @@
 // client code
-const createTweetElement = function(tweet) {
-  const timeAgo = new Date(tweet.created_at).toLocaleString();
+const createTweetElement = function (tweet) {
+  const timeAgo = new Date(tweet.created_at).toLocaleString(); 
   const $tweet = $(`
     <article class="tweet">
       <header>
@@ -11,7 +11,7 @@ const createTweetElement = function(tweet) {
         <span class="handle">${tweet.user.handle}</span>
       </header>
       <div class="content">
-        <p>${tweet.content.text}</p>
+        <p>${$("<div>").text(tweet.content.text).html()}</p> <!-- Escaping user input -->
       </div>
       <footer>
         <span class="time-ago">${timeAgo}</span>
@@ -26,42 +26,62 @@ const createTweetElement = function(tweet) {
   return $tweet;
 };
 
-
-const renderTweets = function(tweets) {
-const $tweetsContainer = $('#tweets-container');
-$tweetsContainer.empty(); 
+const renderTweets = function (tweets) {
+  const $tweetsContainer = $("#tweets-container");
+  $tweetsContainer.empty(); 
   for (const tweet of tweets) {
     const $tweet = createTweetElement(tweet);
-    $tweetsContainer.append($tweet); 
+    $tweetsContainer.prepend($tweet); 
   }
 };
 
+const loadTweets = function () {
+  $.ajax({
+    url: "/tweets", 
+    method: "GET", 
+    dataType: "json", 
+  })
+  .done(function (tweets) {
+    renderTweets(tweets); 
+    })
+    .fail(function (error) {
+      console.error("Error loading tweets:", error);
+    });
+};
 
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": "https://i.imgur.com/73hZDYK.png",
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": "https://i.imgur.com/nlhLi3I.png",
-      "handle": "@rd"
-    },
-    "content": {
-      "text": "Je pense, donc je suis"
-    },
-    "created_at": 1461113959088
-  }
-];
+$(document).ready(function () {
 
-$(document).ready(function() {
-  renderTweets(data);
+  loadTweets();
+
+$("#new-tweet-form").on("submit", function (event) {
+  event.preventDefault(); 
+
+  const $form = $(this);
+  const tweetText = $form.find("textarea").val().trim(); 
+
+if (!tweetText) {
+  alert("Tweet cannot be empty!");
+     return;
+    }
+    if (tweetText.length > 140) {
+      alert("Tweet cannot exceed 140 characters!");
+      return;
+    }
+
+const formData = $form.serialize();
+
+  $.ajax({
+  url: "/tweets", 
+  method: "POST", 
+data: formData, 
+    })
+      .done(function () {
+        console.log("Tweet submitted successfully!");
+        $form.find("textarea").val(""); 
+        loadTweets(); 
+      })
+      .fail(function (error) {
+        console.error("Error submitting tweet:", error);
+      });
+  });
 });
