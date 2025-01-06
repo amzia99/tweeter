@@ -66,6 +66,15 @@ const loadTweets = function () {
 
 
 $(document).ready(function () {
+  $(".compose-btn").on("click", function () {
+    const $newTweetSection = $(".new-tweet");
+    $newTweetSection.slideToggle(() => {
+      if ($newTweetSection.is(":visible")) {
+        $("#tweet-text").focus();
+      }
+    });
+  });
+});
   loadTweets(); 
 
   
@@ -106,4 +115,4 @@ $(document).ready(function () {
         console.error("Error submitting tweet:", error); 
       });
   });
-});
+
