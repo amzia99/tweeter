@@ -1,6 +1,6 @@
 // client code
 const createTweetElement = function (tweet) {
-  const timeAgo = new Date(tweet.created_at).toLocaleString();
+  const timeAgo = timeago.format(tweet.created_at);
   const $tweet = $(`
     <article class="tweet">
       <header>
