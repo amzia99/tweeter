@@ -54,6 +54,9 @@
 
     <section class="new-tweet">
       <h2>Compose Tweet</h2>
+      <div class="error-message" style="display: none;">
+        <i class="fas fa-exclamation-circle"></i>
+        <span class="message-text"></span>
       <form id="new-tweet-form" action="/tweets" method="POST">
         <label for="tweet-text" aria-label="Tweet content">What are you humming about?</label>
         <textarea name="text" id="tweet-text" required minlength="1" maxlength="140"></textarea>
