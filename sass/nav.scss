@@ -1,0 +1,110 @@
+/* nav.css code */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 120px;
+  background-color: #4056A1;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5em;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-family: 'Bungee', sans-serif;
+  font-size: 1.5rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.nav-right span {
+  font-size: 1rem;
+}
+
+.nav-right i {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.compose-btn {
+  background-color: #4caf50; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  font-size: 1rem;
+  cursor: pointer; 
+  margin-left: 20px; 
+  transition: background-color 0.3s ease;
+}
+
+.compose-btn:hover {
+  background-color: #45a049; 
+}
+
+
+.new-tweet {
+  display: none; 
+}
+
+.scroll-top-btn {
+  position: fixed; 
+  bottom: 20px; 
+  right: 20px; 
+  width: 50px; 
+  height: 50px; 
+  background-color: #4caf50; 
+  color: white; 
+  border: none; 
+  border-radius: 50%; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 100; 
+}
+
+.scroll-top-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.1); 
+}
+
+.scroll-top-btn i {
+  font-size: 1.2rem; 
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0077cc;
+  color: white;
+}
+
+.main-nav .nav-logo {
+  font-family: 'Bungee', sans-serif;
+  font-size: 1.5rem;
+}
+
+.main-nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+@media (min-width: 768px) {
+  .main-nav {
+    padding: 15px 40px;
+  }
+
+  .main-nav .nav-right {
+    gap: 20px;
+  }
+}
