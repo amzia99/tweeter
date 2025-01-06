@@ -32,4 +32,23 @@ nav {
   font-size: 1.5rem;
   cursor: pointer;
 }
+.compose-btn {
+  background-color: #4caf50; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  font-size: 1rem;
+  cursor: pointer; 
+  margin-left: 20px; 
+  transition: background-color 0.3s ease;
+}
 
+.compose-btn:hover {
+  background-color: #45a049; 
+}
+
+
+.new-tweet {
+  display: none; 
+}
