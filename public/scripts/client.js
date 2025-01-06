@@ -64,14 +64,25 @@ const loadTweets = function () {
     });
 };
 
-
 $(document).ready(function () {
-  $(".compose-btn").on("click", function () {
-    const $newTweetSection = $(".new-tweet");
-    $newTweetSection.slideToggle(() => {
-      if ($newTweetSection.is(":visible")) {
-        $("#tweet-text").focus();
-      }
+  $(window).on("scroll", function () {
+    const scrollTop = $(window).scrollTop(); 
+
+    if (scrollTop > 100) {
+      $(".scroll-top-btn").fadeIn(); 
+      $(".compose-btn").fadeOut(); 
+    } else {
+      $(".scroll-top-btn").fadeOut(); 
+      $(".compose-btn").fadeIn(); 
+    }
+  });
+
+  $(".scroll-top-btn").on("click", function () {
+    $("html, body").animate({ scrollTop: 0 }, "slow", function () {
+      const $newTweetSection = $(".new-tweet");
+      $newTweetSection.slideDown(() => {
+        $("#tweet-text").focus(); 
+      });
     });
   });
 });
