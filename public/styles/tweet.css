@@ -23,6 +23,11 @@
   transform: translateY(-2px); 
 }
 
+.tweet header, .tweet footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .tweet header {
   display: flex;
@@ -82,4 +87,11 @@
 
 .tweet .icons i:hover {
   color: #1da1f2; 
+}
+
+@media (min-width: 1024px) {
+  .tweet {
+    max-width: 800px;
+    margin: 10px auto;
+  }
 }
