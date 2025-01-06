@@ -1,6 +1,16 @@
 // client code
+const escape = function (str) {
+  let div = document.createElement("div")
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 const createTweetElement = function (tweet) {
   const timeAgo = timeago.format(tweet.created_at);
+  const safeName = escape(tweet.user.name);
+  const safeHandle = escape(tweet.user.handle);
+  const safeContent = escape(tweet.content.text);
+
   const $tweet = $(`
     <article class="tweet">
       <header>
@@ -31,8 +41,10 @@ const renderTweets = function (tweets) {
   const $tweetsContainer = $("#tweets-container");
   $tweetsContainer.empty(); 
   for (const tweet of tweets) {
+    if (newTweet) {}
     const $tweet = createTweetElement(tweet);
     $tweetsContainer.prepend($tweet); 
+    return;
   }
 };
 
@@ -44,6 +56,7 @@ const loadTweets = function () {
   dataType: "json", 
   })
     .done(function (tweets) {
+      $tweetsContainer.empty(); 
       renderTweets(tweets); 
     })
     .fail(function (error) {
@@ -63,13 +76,19 @@ $(document).ready(function () {
     const tweetText = $form.find("textarea").val().trim(); 
 
     if (!tweetText) {
-      alert("Tweet cannot be empty!"); 
+      $(".error-message")
+      .text("Error: Tweet cannot be empty!")
+      .slideDown();
       return;
     }
     if (tweetText.length > 140) {
-      alert("Tweet cannot exceed 140 characters!"); 
+      $(".error-message")
+      .text("Error: Tweet cannot exceed 140 characters!")
+      .slideDown();
       return;
     }
+
+    $(".error-message").slideUp();
 
     const formData = $form.serialize(); 
 
